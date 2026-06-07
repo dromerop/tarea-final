@@ -13,7 +13,7 @@ pipeline {
     agent {
         kubernetes {
             defaultContainer 'pnpm'
-            yamlFile 'agent-node.yaml'
+            yamlFile 'agent.yaml'
         }
     }
     environment{
