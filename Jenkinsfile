@@ -45,7 +45,7 @@ pipeline {
                         }
                     }
                 }
-                stage('CI - Revsion de linter'){
+                stage('CI - Revision de linter'){
                     steps {
                         container('pnpm'){
                             sh '''
@@ -54,7 +54,7 @@ pipeline {
                         }
                     }
                 }
-                stage('CI - Revision de linter'){
+                stage('CI - Test'){
                     steps {
                         container('pnpm'){
                             sh '''
