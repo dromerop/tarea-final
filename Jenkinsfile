@@ -10,7 +10,12 @@ def tagAndPush(String localImage, String repo, String registry, String credentia
 }
 
 pipeline {
-    agent none
+    agent {
+        kubernetes {
+            defaultContainer 'pnpm'
+            yamlFile 'agent-node.yaml'
+        }
+    }
     environment{
         IMAGE_NAME = 'tarea-final'
         DH_REPO = 'dromerocl/tara-final'
