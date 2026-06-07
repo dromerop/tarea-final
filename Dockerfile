@@ -19,7 +19,8 @@ FROM node:24-alpine AS dependencias-produccion
 
 WORKDIR /usr/app
 
-RUN corepack enable
+#RUN corepack enable
+RUN npm i -g corepack && corepack enable pnpm
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
