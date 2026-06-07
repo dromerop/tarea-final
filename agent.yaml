@@ -50,3 +50,35 @@ spec:
         limits:
           cpu: "1000m"
           memory: "512Mi"
+    - name: buildkit
+      image: moby/buildkit:rootless
+      command:
+        - cat
+      tty: true
+      volumeMounts:
+        - name: regcred-dh
+          mountPath: /docker-configs/dockerhub
+          readOnly: true
+        - name: regcred-gh
+          mountPath: /docker-configs/github
+          readOnly: true
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+        limits:
+          cpu: "6000m"
+          memory: "1024Mi"
+  volumes:
+    - name: regcred-dh
+      secret:
+        secretName: regcred-dh
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+    - name: regcred-gh
+      secret:
+        secretName: regcred-gh
+        items:
+          - key: .dockerconfigjson
+            path: config.json

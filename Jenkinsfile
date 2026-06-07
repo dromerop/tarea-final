@@ -89,5 +89,48 @@ pipeline {
                 }
             }
         }
+        stage('CD - build y push imagen') {
+            steps {
+                script {
+                    if (!env.APP_SEMANTIC_VERSION?.trim()) {
+                        error('APP_SEMANTIC_VERSION no esta definido')
+                    }
+                }
+                container('buildkit'){
+                    sh '''
+                        export DOCKER_CONFIG=/docker-configs/dockerhub
+                        test -s "${DOCKER_CONFIG}/config.json"
+
+                        buildctl-daemonless.sh build \
+                        --frontend dockerfile.v0 \
+                        --local context=. \
+                        --local dockerfile=. \
+                        --output type=image,name=${DH_REPO}:latest,push=true
+
+                        buildctl-daemonless.sh build \
+                        --frontend dockerfile.v0 \
+                        --local context=. \
+                        --local dockerfile=. \
+                        --output type=image,name=${DH_REPO}:${APP_SEMANTIC_VERSION},push=true
+
+                        export DOCKER_CONFIG=/docker-configs/github
+                        test -s "${DOCKER_CONFIG}/config.json"
+
+                        buildctl-daemonless.sh build \
+                        --frontend dockerfile.v0 \
+                        --local context=. \
+                        --local dockerfile=. \
+                        --output type=image,name=${GH_REPO}:latest,push=true
+
+                        buildctl-daemonless.sh build \
+                        --frontend dockerfile.v0 \
+                        --local context=. \
+                        --local dockerfile=. \
+                        --output type=image,name=${GH_REPO}:${APP_SEMANTIC_VERSION},push=true
+                    '''
+                }
+            }
+        }
+
     }
 }
