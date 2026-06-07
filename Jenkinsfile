@@ -132,6 +132,26 @@ pipeline {
                 }
             }
         }
+        stage('CD - Despliegue en K8'){
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    if(!env.APP_SEMANTIC_VERSION?.trim()){
+                        error('APP_SEMANTIC_VERSION no esta definido')
+                    }
+                }
+                container('kubectl'){
+                    withKubeConfig([credentialsId: 'local-kubernetes-credentials']){
+                        sh '''
+                            kubectl -n ${K8S_NAMESPACE} set image deployment/${IMAGE_NAME} ${IMAGE_NAME}=${DH_REPO}:${APP_SEMANTIC_VERSION}
+                            kubectl -n ${K8S_NAMESPACE} rollout status deployment/${IMAGE_NAME}
+                        '''
+                    }
+                }
+            }
+        }
 
     }
 }
