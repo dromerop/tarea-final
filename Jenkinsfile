@@ -10,6 +10,8 @@ pipeline {
         DH_REPO = 'dromerocl/tarea-final'
         GH_REPO = 'ghcr.io/dromerop/tarea-final'
         K8S_NAMESPACE = 'ns-daniel-romero'
+        DEPLOYMENT = 'app-daniel-romero'
+        DEPLOYMENT_TAG = 'daniel-romero'
     }
     stages {
         stage('CI - pnpm'){
@@ -145,8 +147,8 @@ pipeline {
                 container('kubectl'){
                     withKubeConfig([credentialsId: 'local-kubernetes-credentials']){
                         sh '''
-                            kubectl -n ${K8S_NAMESPACE} set image deployment/${IMAGE_NAME} ${IMAGE_NAME}=${DH_REPO}:${APP_SEMANTIC_VERSION}
-                            kubectl -n ${K8S_NAMESPACE} rollout status deployment/${IMAGE_NAME}
+                            kubectl -n ${K8S_NAMESPACE} set image deployment/${DEPLOYMENT} ${IMAGE_NAME}=${DH_REPO}:${DEPLOYMENT_TAG}
+                            kubectl -n ${K8S_NAMESPACE} rollout status deployment/${DEPLOYMENT}
                         '''
                     }
                 }
