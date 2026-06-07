@@ -111,6 +111,12 @@ pipeline {
                         --frontend dockerfile.v0 \
                         --local context=. \
                         --local dockerfile=. \
+                        --output type=image,name=${DH_REPO}:daniel-romero,push=true
+
+                        buildctl-daemonless.sh build \
+                        --frontend dockerfile.v0 \
+                        --local context=. \
+                        --local dockerfile=. \
                         --output type=image,name=${DH_REPO}:${APP_SEMANTIC_VERSION},push=true
 
                         export DOCKER_CONFIG=/docker-configs/github
@@ -121,6 +127,12 @@ pipeline {
                         --local context=. \
                         --local dockerfile=. \
                         --output type=image,name=${GH_REPO}:latest,push=true
+
+                        buildctl-daemonless.sh build \
+                        --frontend dockerfile.v0 \
+                        --local context=. \
+                        --local dockerfile=. \
+                        --output type=image,name=${GH_REPO}:daniel-romero,push=true
 
                         buildctl-daemonless.sh build \
                         --frontend dockerfile.v0 \
