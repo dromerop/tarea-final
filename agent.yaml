@@ -52,6 +52,8 @@ spec:
           memory: "512Mi"
     - name: buildkit
       image: moby/buildkit:rootless
+      securityContext:
+        privileged: true
       command:
         - cat
       tty: true
