@@ -1,14 +1,3 @@
-def tagAndPush(String localImage, String repo, String registry, String credential){
-    docker.withRegistry(registry, credential){
-        sh "docker tag ${localImage} ${repo}"
-        sh "docker tag ${localImage} ${repo}:${BUILD_NUMBER}"
-        sh "docker tag ${localImage} ${repo}:${APP_SEMANTIC_VERSION}"
-        sh "docker push ${repo}"
-        sh "docker push ${repo}:${BUILD_NUMBER}"
-        sh "docker push ${repo}:${APP_SEMANTIC_VERSION}"
-    }
-}
-
 pipeline {
     agent {
         kubernetes {
@@ -18,8 +7,8 @@ pipeline {
     }
     environment{
         IMAGE_NAME = 'tarea-final'
-        DH_REPO = 'dromerocl/tara-final'
-        GH_REPO = 'ghcr.io/dromerop/tara-final'
+        DH_REPO = 'dromerocl/tarea-final'
+        GH_REPO = 'ghcr.io/dromerop/tarea-final'
         K8S_NAMESPACE = 'ns-daniel-romero'
     }
     stages {
