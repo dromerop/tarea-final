@@ -27,7 +27,7 @@ pipeline {
                         }
                     }
                 }
-                stage('CI - Instalacion de dependencias'){
+                stage('CI - Install'){
                     steps {
                         container('pnpm'){
                             sh '''
@@ -54,7 +54,7 @@ pipeline {
                         }
                     }
                 }
-                stage('CI - Ejecucion del build'){
+                stage('CI - Build'){
                     steps {
                         container('pnpm'){
                             sh '''
@@ -80,7 +80,7 @@ pipeline {
                 }
             }
         }
-        stage('CD - build y push imagen') {
+        stage('CD - Build y Push imagen') {
             steps {
                 script {
                     if (!env.APP_SEMANTIC_VERSION?.trim()) {
@@ -145,7 +145,7 @@ pipeline {
                     }
                 }
                 container('kubectl'){
-                    withKubeConfig([credentialsId: 'local-kubernetes-credentials']){
+                    withKubeConfig([credentialsId: 'credenciales-kubernetes']){
                         sh '''
                               kubectl cluster-info
 //                            kubectl -n ${K8S_NAMESPACE} set image deployment/${DEPLOYMENT} ${IMAGE_NAME}=${DH_REPO}:${DEPLOYMENT_TAG}
