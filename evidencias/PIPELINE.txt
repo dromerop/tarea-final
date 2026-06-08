@@ -1,0 +1,1072 @@
+Started by user Jenkins Admin
+Replayed #36
+Connecting to https://api.github.com using dromerop/****** (GITHUB CODE)
+Obtained Jenkinsfile from 53888ae798c25de5e9b380c0d4b0e9a2d6b20743
+[Pipeline] Start of Pipeline
+[Pipeline] readTrusted
+Obtained agent.yaml from 53888ae798c25de5e9b380c0d4b0e9a2d6b20743
+[Pipeline] podTemplate
+[Pipeline] {
+[Pipeline] node
+[PodInfo] jenkins/tarea-final-main-37-lkhfq-rnfxs-11ttf
+Container [buildkit] waiting [ContainerCreating] No message
+Container [herramientas] waiting [ContainerCreating] No message
+Container [jnlp] waiting [ContainerCreating] No message
+Container [kubectl] waiting [ContainerCreating] No message
+Container [node] waiting [ContainerCreating] No message
+Container [pnpm] waiting [ContainerCreating] No message
+Pod [Pending][ContainersNotReady] containers with unready status: [herramientas node pnpm kubectl buildkit jnlp]
+Created Pod: kubernetes jenkins/tarea-final-main-37-lkhfq-rnfxs-11ttf
+Agent tarea-final-main-37-lkhfq-rnfxs-11ttf is provisioned from template tarea-final_main_37-lkhfq-rnfxs
+---
+apiVersion: "v1"
+kind: "Pod"
+metadata:
+annotations:
+kubernetes.jenkins.io/last-refresh: "1780886053397"
+buildUrl: "http://jenkins.jenkins.svc.cluster.local:8080/job/tarea-final/job/main/37/"
+runUrl: "job/tarea-final/job/main/37/"
+labels:
+jenkins/jenkins-jenkins-agent: "true"
+jenkins/label-digest: "d2409f2b03d904212f71a2154c26f9a3d4962db0"
+jenkins/label: "tarea-final_main_37-lkhfq"
+kubernetes.jenkins.io/controller: "http___jenkins_jenkins_svc_cluster_local_8080x"
+name: "tarea-final-main-37-lkhfq-rnfxs-11ttf"
+namespace: "jenkins"
+spec:
+containers:
+- command:
+    - "cat"
+      image: "alpine:latest"
+      name: "herramientas"
+      resources:
+      limits:
+      cpu: "1000m"
+      memory: "512Mi"
+      requests:
+      cpu: "100m"
+      memory: "128Mi"
+      tty: true
+      volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+- command:
+    - "cat"
+      image: "node:24"
+      name: "node"
+      resources:
+      limits:
+      cpu: "1000m"
+      memory: "512Mi"
+      requests:
+      cpu: "100m"
+      memory: "128Mi"
+      tty: true
+      volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+- command:
+    - "cat"
+      image: "ghcr.io/pnpm/pnpm:11.1.2"
+      name: "pnpm"
+      resources:
+      limits:
+      cpu: "2000m"
+      memory: "1024Mi"
+      requests:
+      cpu: "100m"
+      memory: "128Mi"
+      tty: true
+      volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+- command:
+    - "cat"
+      image: "alpine/k8s:1.34.1"
+      name: "kubectl"
+      resources:
+      limits:
+      cpu: "1000m"
+      memory: "512Mi"
+      requests:
+      cpu: "100m"
+      memory: "128Mi"
+      tty: true
+      volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+- command:
+    - "cat"
+      image: "moby/buildkit:rootless"
+      name: "buildkit"
+      resources:
+      limits:
+      cpu: "6000m"
+      memory: "4096Mi"
+      requests:
+      cpu: "100m"
+      memory: "128Mi"
+      securityContext:
+      privileged: true
+      tty: true
+      volumeMounts:
+    - mountPath: "/docker-configs/dockerhub"
+      name: "regcred-dh"
+      readOnly: true
+    - mountPath: "/docker-configs/github"
+      name: "regcred-gh"
+      readOnly: true
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+- env:
+    - name: "JENKINS_SECRET"
+      value: "********"
+    - name: "JENKINS_TUNNEL"
+      value: "jenkins-agent.jenkins.svc.cluster.local:50000"
+    - name: "JENKINS_AGENT_NAME"
+      value: "tarea-final-main-37-lkhfq-rnfxs-11ttf"
+    - name: "REMOTING_OPTS"
+      value: "-noReconnectAfter 1d"
+    - name: "JENKINS_NAME"
+      value: "tarea-final-main-37-lkhfq-rnfxs-11ttf"
+    - name: "JENKINS_AGENT_WORKDIR"
+      value: "/home/jenkins/agent"
+    - name: "JENKINS_URL"
+      value: "http://jenkins.jenkins.svc.cluster.local:8080/"
+      image: "jenkins/inbound-agent:3355.v388858a_47b_33-3-jdk21"
+      name: "jnlp"
+      resources:
+      requests:
+      memory: "256Mi"
+      cpu: "100m"
+      volumeMounts:
+    - mountPath: "/home/jenkins/agent"
+      name: "workspace-volume"
+      readOnly: false
+      nodeSelector:
+      kubernetes.io/os: "linux"
+      restartPolicy: "Never"
+      volumes:
+- name: "regcred-gh"
+  secret:
+  items:
+    - key: ".dockerconfigjson"
+      path: "config.json"
+      secretName: "regcred-gh"
+- name: "regcred-dh"
+  secret:
+  items:
+    - key: ".dockerconfigjson"
+      path: "config.json"
+      secretName: "regcred-dh"
+- emptyDir:
+  medium: ""
+  name: "workspace-volume"
+
+Running on tarea-final-main-37-lkhfq-rnfxs-11ttf in /home/jenkins/agent/workspace/tarea-final_main
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential 82bca5cb-a4fb-4dd4-a596-2c35295e44d8
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/dromerop/tarea-final.git
+> git init /home/jenkins/agent/workspace/tarea-final_main # timeout=10
+Fetching upstream changes from https://github.com/dromerop/tarea-final.git
+> git --version # timeout=10
+> git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials GITHUB CODE
+> git fetch --no-tags --force --progress -- https://github.com/dromerop/tarea-final.git +refs/heads/main:refs/remotes/origin/main # timeout=10
+Avoid second fetch
+Checking out Revision 53888ae798c25de5e9b380c0d4b0e9a2d6b20743 (main)
+> git config remote.origin.url https://github.com/dromerop/tarea-final.git # timeout=10
+> git config --add remote.origin.fetch +refs/heads/main:refs/remotes/origin/main # timeout=10
+> git config core.sparsecheckout # timeout=10
+> git checkout -f 53888ae798c25de5e9b380c0d4b0e9a2d6b20743 # timeout=10
+Commit message: "jenkinsfile update"
+> git rev-list --no-walk 53888ae798c25de5e9b380c0d4b0e9a2d6b20743 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] container
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (CI - pnpm)
+[Pipeline] stage
+[Pipeline] { (CI - Configuracion de pnpm y node)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ pnpm runtime set node 24 -g
+  Progress: resolved 1, reused 0, downloaded 0, added 0
+  Packages: +1
++
+Progress: resolved 1, reused 0, downloaded 1, added 0
+Progress: resolved 1, reused 0, downloaded 1, added 1, done
+
+global:
++ node 24.16.0
+
+Done in 2.3s using pnpm v11.1.2
++ node --version
+  v24.16.0
++ pnpm --version
+  11.1.2
+  [Pipeline] }
+  [Pipeline] // container
+  [Pipeline] }
+  [Pipeline] // stage
+  [Pipeline] stage
+  [Pipeline] { (CI - Install)
+  [Pipeline] container
+  [Pipeline] {
+  [Pipeline] sh
++ pnpm install --frozen-lockfile
+  Lockfile is up to date, resolution step is skipped
+  Progress: resolved 1, reused 0, downloaded 0, added 0
+  Packages: +643
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  Progress: resolved 643, reused 0, downloaded 246, added 242
+  Progress: resolved 643, reused 0, downloaded 643, added 643, done
+
+dependencies:
++ @nestjs/common 11.1.24
++ @nestjs/core 11.1.24
++ @nestjs/platform-express 11.1.24
++ reflect-metadata 0.2.2
++ rxjs 7.8.2
+
+devDependencies:
++ @eslint/eslintrc 3.3.5
++ @eslint/js 9.39.4
++ @nestjs/cli 11.0.21
++ @nestjs/schematics 11.1.0
++ @nestjs/testing 11.1.24
++ @types/express 5.0.6
++ @types/jest 30.0.0
++ @types/node 24.12.4
++ @types/supertest 7.2.0
++ eslint 9.39.4
++ eslint-config-prettier 10.1.8
++ eslint-plugin-prettier 5.5.6
++ globals 17.6.0
++ jest 30.4.2
++ prettier 3.8.3
++ source-map-support 0.5.21
++ supertest 7.2.2
++ ts-jest 29.4.11
++ ts-loader 9.6.0
++ ts-node 10.9.2
++ tsconfig-paths 4.2.0
++ typescript 5.9.3
++ typescript-eslint 8.60.0
+
+Done in 2.2s using pnpm v11.1.2
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (CI - Revision de linter)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ pnpm lint
+  $ eslint "{src,apps,libs,test}/**/*.ts" --fix
+
+/home/jenkins/agent/workspace/tarea-final_main/src/main.ts
+12:1  warning  Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator  @typescript-eslint/no-floating-promises
+
+✖ 1 problem (0 errors, 1 warning)
+
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (CI - Test)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ pnpm test
+  $ jest
+  PASS src/env-config.spec.ts
+  PASS src/app.controller.spec.ts
+
+Test Suites: 2 passed, 2 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        0.36 s
+Ran all test suites.
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (CI - Build)
+[Pipeline] container
+[Pipeline] {
+[Pipeline] sh
++ pnpm build
+  $ nest build
+  [Pipeline] }
+  [Pipeline] // container
+  [Pipeline] }
+  [Pipeline] // stage
+  [Pipeline] stage
+  [Pipeline] { (CI - Obtener semver)
+  [Pipeline] container
+  [Pipeline] {
+  [Pipeline] script
+  [Pipeline] {
+  [Pipeline] sh
++ node -p require('./package.json').version
+  [Pipeline] echo
+  Version semantica detectada : 0.0.1
+  [Pipeline] }
+  [Pipeline] // script
+  [Pipeline] }
+  [Pipeline] // container
+  [Pipeline] }
+  [Pipeline] // stage
+  [Pipeline] }
+  [Pipeline] // stage
+  [Pipeline] stage
+  [Pipeline] { (CD - Build y Push imagen)
+  [Pipeline] script
+  [Pipeline] {
+  [Pipeline] }
+  [Pipeline] // script
+  [Pipeline] container
+  [Pipeline] {
+  [Pipeline] sh
++ export 'DOCKER_CONFIG=/docker-configs/dockerhub'
++ test -s /docker-configs/dockerhub/config.json
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=dromerocl/tarea-final:latest,push=true'
+  #1 [internal] load build definition from Dockerfile
+  #1 transferring dockerfile: 791B done
+  #1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 ...
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/node:24-alpine
+#4 DONE 4.6s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 DONE 4.6s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#6 resolve docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14 done
+#6 ...
+
+#7 [internal] load build context
+#7 transferring context: 216.66kB 0.1s done
+#7 DONE 0.1s
+
+#6 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#6 sha256:d288096416163ccf3543748d1b6d49f3ed767b35ac3354c2179ca373a2635b3b 444B / 444B 0.1s done
+#6 sha256:94608041901381d610a9dae20a814b97ba1ca8dd569ba4a40c44a4df0cd48fd0 1.26MB / 1.26MB 0.2s done
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 0B / 52.84MB 0.2s
+#6 sha256:d17f077ada118cc762df373ff803592abf2dfa3ddafaa7381e364dd27a88fca7 0B / 4.20MB 0.2s
+#6 sha256:d17f077ada118cc762df373ff803592abf2dfa3ddafaa7381e364dd27a88fca7 4.20MB / 4.20MB 0.4s done
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 14.68MB / 52.84MB 0.5s
+#6 extracting sha256:d17f077ada118cc762df373ff803592abf2dfa3ddafaa7381e364dd27a88fca7 0.1s done
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 31.46MB / 52.84MB 0.6s
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 39.85MB / 52.84MB 0.8s
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 45.09MB / 52.84MB 0.9s
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 48.23MB / 52.84MB 1.1s
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 51.38MB / 52.84MB 1.2s
+#6 sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 52.84MB / 52.84MB 1.3s done
+#6 extracting sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673
+#6 extracting sha256:f0736842e9d3ece34cfad47858392c31335fc90c93cfb54986f40411faef4673 0.9s done
+#6 DONE 2.3s
+
+#8 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#8 resolve docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63 done
+#8 sha256:1e5291e3a2f1489d4763f627befc7ade4f46d10eea0f41535113437277d16de8 450B / 450B 0.3s done
+#8 sha256:c37b49c5b913b07c0888eefbd651473e28f58d8d90bdea24bf0a9baba441fca6 1.25MB / 1.25MB 0.3s done
+#8 sha256:535b1b37fb564e19fd7de7253f1dd9515ee8734e9a2809f257b063d1605abfb7 58.72MB / 58.72MB 1.3s done
+#8 sha256:4f6dde1393d1a1aa238745dd73c2779ddedc02d43c1102ae20cfe1e5d1ef0be3 3.32kB / 3.32kB 0.2s done
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 45.09MB / 203.11MB 1.8s
+#8 sha256:35c669ec0346d48159cb837d6257098593cd53e61de677d9c0426474d36e1c5e 33.55MB / 64.49MB 1.7s
+#8 sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543 10.49MB / 23.61MB 0.9s
+#8 sha256:1fbcdab7270278c1f989ae72190255d85d2117e990efb76cde6eb206b803672c 15.73MB / 48.38MB 0.5s
+#8 ...
+
+#6 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#6 extracting sha256:94608041901381d610a9dae20a814b97ba1ca8dd569ba4a40c44a4df0cd48fd0 0.1s done
+#6 extracting sha256:d288096416163ccf3543748d1b6d49f3ed767b35ac3354c2179ca373a2635b3b 0.0s done
+#6 DONE 2.4s
+
+#9 [dependencias-produccion 2/5] WORKDIR /usr/app
+#9 DONE 0.0s
+
+#8 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#8 sha256:1fbcdab7270278c1f989ae72190255d85d2117e990efb76cde6eb206b803672c 27.26MB / 48.38MB 0.6s
+#8 ...
+
+#10 [publicacion 3/5] COPY package.json ./
+#10 DONE 0.0s
+
+#8 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#8 sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543 12.58MB / 23.61MB 1.2s
+#8 sha256:1fbcdab7270278c1f989ae72190255d85d2117e990efb76cde6eb206b803672c 38.80MB / 48.38MB 0.8s
+#8 ...
+
+#11 [dependencias-produccion 3/5] RUN corepack enable
+#11 DONE 0.1s
+
+#12 [dependencias-produccion 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 DONE 0.0s
+
+#8 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#8 sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543 14.68MB / 23.61MB 1.4s
+#8 sha256:1fbcdab7270278c1f989ae72190255d85d2117e990efb76cde6eb206b803672c 48.38MB / 48.38MB 0.9s done
+#8 extracting sha256:1fbcdab7270278c1f989ae72190255d85d2117e990efb76cde6eb206b803672c
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 61.87MB / 203.11MB 2.3s
+#8 sha256:35c669ec0346d48159cb837d6257098593cd53e61de677d9c0426474d36e1c5e 39.85MB / 64.49MB 2.1s
+#8 sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543 17.83MB / 23.61MB 1.5s
+#8 sha256:35c669ec0346d48159cb837d6257098593cd53e61de677d9c0426474d36e1c5e 46.14MB / 64.49MB 2.3s
+#8 sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543 20.97MB / 23.61MB 1.7s
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 77.59MB / 203.11MB 2.6s
+#8 sha256:35c669ec0346d48159cb837d6257098593cd53e61de677d9c0426474d36e1c5e 59.77MB / 64.49MB 2.6s
+#8 sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543 23.61MB / 23.61MB 1.7s done
+#8 sha256:35c669ec0346d48159cb837d6257098593cd53e61de677d9c0426474d36e1c5e 64.49MB / 64.49MB 2.7s done
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 99.61MB / 203.11MB 2.9s
+#8 extracting sha256:1fbcdab7270278c1f989ae72190255d85d2117e990efb76cde6eb206b803672c 0.8s done
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 135.27MB / 203.11MB 3.2s
+#8 extracting sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 165.68MB / 203.11MB 3.5s
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 183.50MB / 203.11MB 3.6s
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 201.33MB / 203.11MB 3.8s
+#8 extracting sha256:c3daebbc198bd7b84bdd72840d7f4ded251896f03b9a9f880894e95e926bc543 0.7s done
+#8 extracting sha256:35c669ec0346d48159cb837d6257098593cd53e61de677d9c0426474d36e1c5e
+#8 sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 203.11MB / 203.11MB 3.8s done
+#8 extracting sha256:35c669ec0346d48159cb837d6257098593cd53e61de677d9c0426474d36e1c5e 1.2s done
+#8 DONE 5.4s
+
+#13 [dependencias-produccion 5/5] RUN pnpm install --prod --frozen-lockfile
+#13 1.152 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-11.5.2.tgz
+#13 2.194 ? Verifying lockfile against supply-chain policies (670 entries)...
+#13 4.491 ✓ Lockfile passes supply-chain policies (670 entries in 2.2s)
+#13 4.493 Lockfile is up to date, resolution step is skipped
+#13 4.500 Progress: resolved 1, reused 0, downloaded 0, added 0
+#13 4.853 Packages: +104
+#13 4.853 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#13 5.398 Progress: resolved 104, reused 0, downloaded 104, added 104, done
+#13 5.754
+#13 5.754 dependencies:
+#13 5.754 + @nestjs/common 11.1.24
+#13 5.754 + @nestjs/core 11.1.24
+#13 5.754 + @nestjs/platform-express 11.1.24
+#13 5.754 + reflect-metadata 0.2.2
+#13 5.754 + rxjs 7.8.2
+#13 5.754
+#13 5.754 devDependencies: skipped
+#13 5.754
+#13 5.775 Done in 4s using pnpm v11.5.2
+#13 DONE 5.9s
+
+#8 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#8 extracting sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6
+#8 ...
+
+#14 [publicacion 4/5] COPY --from=dependencias-produccion /usr/app/node_modules ./node_modules
+#14 DONE 0.3s
+
+#8 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#8 extracting sha256:b03874872dc6df1c0caacf1eaa4544f492fcb08bd68a885b9b784f5e9be1d6e6 3.6s done
+#8 extracting sha256:4f6dde1393d1a1aa238745dd73c2779ddedc02d43c1102ae20cfe1e5d1ef0be3 0.0s done
+#8 extracting sha256:535b1b37fb564e19fd7de7253f1dd9515ee8734e9a2809f257b063d1605abfb7
+#8 extracting sha256:535b1b37fb564e19fd7de7253f1dd9515ee8734e9a2809f257b063d1605abfb7 1.0s done
+#8 DONE 10.1s
+
+#8 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#8 extracting sha256:c37b49c5b913b07c0888eefbd651473e28f58d8d90bdea24bf0a9baba441fca6 0.0s done
+#8 extracting sha256:1e5291e3a2f1489d4763f627befc7ade4f46d10eea0f41535113437277d16de8 done
+#8 DONE 10.1s
+
+#15 [dependencias 2/5] WORKDIR /usr/app
+#15 DONE 0.0s
+
+#16 [dependencias 3/5] RUN corepack enable
+#16 DONE 0.1s
+
+#17 [dependencias 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#17 DONE 0.0s
+
+#18 [dependencias 5/5] RUN pnpm install --frozen-lockfile
+#18 0.126 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-11.5.2.tgz
+#18 0.873 ? Verifying lockfile against supply-chain policies (670 entries)...
+#18 2.782 ✓ Lockfile passes supply-chain policies (670 entries in 1.9s)
+#18 2.784 Lockfile is up to date, resolution step is skipped
+#18 2.811 Progress: resolved 1, reused 0, downloaded 0, added 0
+#18 2.833 Packages: +643
+#18 2.833 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#18 3.809 Progress: resolved 643, reused 0, downloaded 643, added 643, done
+#18 3.984
+#18 3.984 dependencies:
+#18 3.984 + @nestjs/common 11.1.24
+#18 3.984 + @nestjs/core 11.1.24
+#18 3.984 + @nestjs/platform-express 11.1.24
+#18 3.984 + reflect-metadata 0.2.2
+#18 3.984 + rxjs 7.8.2
+#18 3.984
+#18 3.984 devDependencies:
+#18 3.984 + @eslint/eslintrc 3.3.5
+#18 3.984 + @eslint/js 9.39.4
+#18 3.984 + @nestjs/cli 11.0.21
+#18 3.984 + @nestjs/schematics 11.1.0
+#18 3.984 + @nestjs/testing 11.1.24
+#18 3.984 + @types/express 5.0.6
+#18 3.984 + @types/jest 30.0.0
+#18 3.984 + @types/node 24.12.4
+#18 3.984 + @types/supertest 7.2.0
+#18 3.984 + eslint 9.39.4
+#18 3.984 + eslint-config-prettier 10.1.8
+#18 3.984 + eslint-plugin-prettier 5.5.6
+#18 3.984 + globals 17.6.0
+#18 3.984 + jest 30.4.2
+#18 3.984 + prettier 3.8.3
+#18 3.984 + source-map-support 0.5.21
+#18 3.984 + supertest 7.2.2
+#18 3.984 + ts-jest 29.4.11
+#18 3.984 + ts-loader 9.6.0
+#18 3.984 + ts-node 10.9.2
+#18 3.984 + tsconfig-paths 4.2.0
+#18 3.984 + typescript 5.9.3
+#18 3.984 + typescript-eslint 8.60.0
+#18 3.984
+#18 4.006 Done in 3.4s using pnpm v11.5.2
+#18 DONE 4.3s
+
+#19 [construccion 1/3] COPY nest-cli.json tsconfig*.json ./
+#19 DONE 0.2s
+
+#20 [construccion 2/3] COPY src ./src
+#20 DONE 0.0s
+
+#21 [construccion 3/3] RUN pnpm run build
+#21 0.276 $ nest build
+#21 DONE 1.7s
+
+#22 [publicacion 5/5] COPY --from=construccion /usr/app/dist ./dist
+#22 DONE 0.0s
+
+#23 exporting to image
+#23 exporting layers
+#23 exporting layers 0.5s done
+#23 exporting manifest sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 done
+#23 exporting config sha256:151da7edabb6755a248b709f9574fcc6870f98fe149a781ad6f76411031d2e9c done
+#23 pushing layers
+#23 ...
+
+#24 [auth] dromerocl/tarea-final:pull,push token for registry-1.docker.io
+#24 DONE 0.0s
+
+#23 exporting to image
+#23 pushing layers 2.3s done
+#23 pushing manifest for docker.io/dromerocl/tarea-final:latest@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4
+#23 pushing manifest for docker.io/dromerocl/tarea-final:latest@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 2.6s done
+#23 DONE 5.4s
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=dromerocl/tarea-final:daniel-romero,push=true'
+  #1 [internal] load build definition from Dockerfile
+  #1 transferring dockerfile: 791B done
+  #1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 ...
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/node:24-alpine
+#4 ...
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 DONE 0.8s
+
+#4 [internal] load metadata for docker.io/library/node:24-alpine
+#4 DONE 0.8s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#6 resolve docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63 done
+#6 DONE 0.0s
+
+#7 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#7 resolve docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14 done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 506B 0.1s done
+#8 DONE 0.1s
+
+#9 [dependencias 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#9 CACHED
+
+#10 [dependencias-produccion 2/5] WORKDIR /usr/app
+#10 CACHED
+
+#11 [dependencias 3/5] RUN corepack enable
+#11 CACHED
+
+#12 [construccion 2/3] COPY src ./src
+#12 CACHED
+
+#13 [publicacion 4/5] COPY --from=dependencias-produccion /usr/app/node_modules ./node_modules
+#13 CACHED
+
+#14 [dependencias-produccion 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#14 CACHED
+
+#15 [construccion 3/3] RUN pnpm run build
+#15 CACHED
+
+#16 [dependencias-produccion 3/5] RUN corepack enable
+#16 CACHED
+
+#17 [dependencias 2/5] WORKDIR /usr/app
+#17 CACHED
+
+#18 [publicacion 3/5] COPY package.json ./
+#18 CACHED
+
+#19 [construccion 1/3] COPY nest-cli.json tsconfig*.json ./
+#19 CACHED
+
+#20 [dependencias 5/5] RUN pnpm install --frozen-lockfile
+#20 CACHED
+
+#21 [dependencias-produccion 5/5] RUN pnpm install --prod --frozen-lockfile
+#21 CACHED
+
+#22 [publicacion 5/5] COPY --from=construccion /usr/app/dist ./dist
+#22 CACHED
+
+#23 [auth] dromerocl/tarea-final:pull,push token for registry-1.docker.io
+#23 DONE 0.0s
+
+#24 exporting to image
+#24 exporting layers done
+#24 exporting manifest sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 done
+#24 exporting config sha256:151da7edabb6755a248b709f9574fcc6870f98fe149a781ad6f76411031d2e9c done
+#24 pushing layers
+#24 pushing layers 0.7s done
+#24 pushing manifest for docker.io/dromerocl/tarea-final:daniel-romero@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4
+#24 pushing manifest for docker.io/dromerocl/tarea-final:daniel-romero@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 2.2s done
+#24 DONE 2.8s
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=dromerocl/tarea-final:0.0.1,push=true'
+  #1 [internal] load build definition from Dockerfile
+  #1 transferring dockerfile: 791B done
+  #1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 ...
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/node:24-alpine
+#4 DONE 0.7s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 DONE 0.7s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#6 resolve docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14 done
+#6 DONE 0.0s
+
+#7 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#7 resolve docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63 done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 506B 0.1s done
+#8 DONE 0.1s
+
+#9 [dependencias-produccion 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#9 CACHED
+
+#10 [dependencias 5/5] RUN pnpm install --frozen-lockfile
+#10 CACHED
+
+#11 [publicacion 3/5] COPY package.json ./
+#11 CACHED
+
+#12 [dependencias 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 CACHED
+
+#13 [dependencias 2/5] WORKDIR /usr/app
+#13 CACHED
+
+#14 [dependencias-produccion 5/5] RUN pnpm install --prod --frozen-lockfile
+#14 CACHED
+
+#15 [construccion 2/3] COPY src ./src
+#15 CACHED
+
+#16 [construccion 1/3] COPY nest-cli.json tsconfig*.json ./
+#16 CACHED
+
+#17 [publicacion 4/5] COPY --from=dependencias-produccion /usr/app/node_modules ./node_modules
+#17 CACHED
+
+#18 [dependencias-produccion 3/5] RUN corepack enable
+#18 CACHED
+
+#19 [dependencias-produccion 2/5] WORKDIR /usr/app
+#19 CACHED
+
+#20 [dependencias 3/5] RUN corepack enable
+#20 CACHED
+
+#21 [construccion 3/3] RUN pnpm run build
+#21 CACHED
+
+#22 [publicacion 5/5] COPY --from=construccion /usr/app/dist ./dist
+#22 CACHED
+
+#23 [auth] dromerocl/tarea-final:pull,push token for registry-1.docker.io
+#23 DONE 0.0s
+
+#24 exporting to image
+#24 exporting layers done
+#24 exporting manifest sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 done
+#24 exporting config sha256:151da7edabb6755a248b709f9574fcc6870f98fe149a781ad6f76411031d2e9c done
+#24 pushing layers
+#24 pushing layers 0.6s done
+#24 pushing manifest for docker.io/dromerocl/tarea-final:0.0.1@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4
+#24 pushing manifest for docker.io/dromerocl/tarea-final:0.0.1@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 2.2s done
+#24 DONE 2.8s
++ export 'DOCKER_CONFIG=/docker-configs/github'
++ test -s /docker-configs/github/config.json
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=ghcr.io/dromerop/tarea-final:latest,push=true'
+  #1 [internal] load build definition from Dockerfile
+  #1 transferring dockerfile: 791B done
+  #1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 DONE 0.7s
+
+#3 [internal] load metadata for docker.io/library/node:24-alpine
+#3 DONE 0.7s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#5 resolve docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63 done
+#5 DONE 0.0s
+
+#6 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#6 resolve docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14 done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 506B 0.1s done
+#7 DONE 0.1s
+
+#8 [construccion 2/3] COPY src ./src
+#8 CACHED
+
+#9 [dependencias-produccion 5/5] RUN pnpm install --prod --frozen-lockfile
+#9 CACHED
+
+#10 [dependencias-produccion 3/5] RUN corepack enable
+#10 CACHED
+
+#11 [dependencias-produccion 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#11 CACHED
+
+#12 [dependencias 5/5] RUN pnpm install --frozen-lockfile
+#12 CACHED
+
+#13 [dependencias-produccion 2/5] WORKDIR /usr/app
+#13 CACHED
+
+#14 [construccion 3/3] RUN pnpm run build
+#14 CACHED
+
+#15 [construccion 1/3] COPY nest-cli.json tsconfig*.json ./
+#15 CACHED
+
+#16 [publicacion 4/5] COPY --from=dependencias-produccion /usr/app/node_modules ./node_modules
+#16 CACHED
+
+#17 [dependencias 3/5] RUN corepack enable
+#17 CACHED
+
+#18 [publicacion 3/5] COPY package.json ./
+#18 CACHED
+
+#19 [dependencias 2/5] WORKDIR /usr/app
+#19 CACHED
+
+#20 [dependencias 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#20 CACHED
+
+#21 [publicacion 5/5] COPY --from=construccion /usr/app/dist ./dist
+#21 CACHED
+
+#22 exporting to image
+#22 exporting layers done
+#22 exporting manifest sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 done
+#22 exporting config sha256:151da7edabb6755a248b709f9574fcc6870f98fe149a781ad6f76411031d2e9c done
+#22 pushing layers
+#22 ...
+
+#23 [auth] dromerop/tarea-final:pull,push token for ghcr.io
+#23 DONE 0.0s
+
+#22 exporting to image
+#22 pushing layers 3.3s done
+#22 pushing manifest for ghcr.io/dromerop/tarea-final:latest@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4
+#22 pushing manifest for ghcr.io/dromerop/tarea-final:latest@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 0.6s done
+#22 DONE 3.9s
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=ghcr.io/dromerop/tarea-final:daniel-romero,push=true'
+  #1 [internal] load build definition from Dockerfile
+  #1 transferring dockerfile: 791B done
+  #1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 DONE 0.8s
+
+#3 [internal] load metadata for docker.io/library/node:24-alpine
+#3 DONE 0.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#5 resolve docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63 done
+#5 DONE 0.0s
+
+#6 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#6 resolve docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14 done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 506B 0.1s done
+#7 DONE 0.1s
+
+#8 [dependencias 5/5] RUN pnpm install --frozen-lockfile
+#8 CACHED
+
+#9 [dependencias-produccion 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#9 CACHED
+
+#10 [dependencias-produccion 3/5] RUN corepack enable
+#10 CACHED
+
+#11 [construccion 2/3] COPY src ./src
+#11 CACHED
+
+#12 [dependencias-produccion 2/5] WORKDIR /usr/app
+#12 CACHED
+
+#13 [dependencias 3/5] RUN corepack enable
+#13 CACHED
+
+#14 [dependencias 2/5] WORKDIR /usr/app
+#14 CACHED
+
+#15 [publicacion 4/5] COPY --from=dependencias-produccion /usr/app/node_modules ./node_modules
+#15 CACHED
+
+#16 [dependencias 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#16 CACHED
+
+#17 [construccion 3/3] RUN pnpm run build
+#17 CACHED
+
+#18 [dependencias-produccion 5/5] RUN pnpm install --prod --frozen-lockfile
+#18 CACHED
+
+#19 [publicacion 3/5] COPY package.json ./
+#19 CACHED
+
+#20 [construccion 1/3] COPY nest-cli.json tsconfig*.json ./
+#20 CACHED
+
+#21 [publicacion 5/5] COPY --from=construccion /usr/app/dist ./dist
+#21 CACHED
+
+#22 exporting to image
+#22 exporting layers done
+#22 exporting manifest sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 done
+#22 exporting config sha256:151da7edabb6755a248b709f9574fcc6870f98fe149a781ad6f76411031d2e9c done
+#22 pushing layers
+#22 ...
+
+#23 [auth] dromerop/tarea-final:pull,push token for ghcr.io
+#23 DONE 0.0s
+
+#22 exporting to image
+#22 pushing layers 1.1s done
+#22 pushing manifest for ghcr.io/dromerop/tarea-final:daniel-romero@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4
+#22 pushing manifest for ghcr.io/dromerop/tarea-final:daniel-romero@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 0.6s done
+#22 DONE 1.7s
++ buildctl-daemonless.sh build --frontend dockerfile.v0 --local 'context=.' --local 'dockerfile=.' --output 'type=image,name=ghcr.io/dromerop/tarea-final:0.0.1,push=true'
+  #1 [internal] load build definition from Dockerfile
+  #1 transferring dockerfile: 791B done
+  #1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/node:24-alpine
+#3 DONE 0.7s
+
+#2 [internal] load metadata for docker.io/library/node:24
+#2 DONE 0.7s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [dependencias 1/5] FROM docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63
+#5 resolve docker.io/library/node:24@sha256:8530f76a96d88820d288761f022e318970dda93d01536919fbc16076b7983e63 done
+#5 DONE 0.0s
+
+#6 [dependencias-produccion 1/5] FROM docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14
+#6 resolve docker.io/library/node:24-alpine@sha256:2bdb65ed1dab192432bc31c95f94155ca5ad7fc1392fb7eb7526ab682fa5bf14 done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 506B 0.1s done
+#7 DONE 0.1s
+
+#8 [dependencias 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#8 CACHED
+
+#9 [dependencias-produccion 5/5] RUN pnpm install --prod --frozen-lockfile
+#9 CACHED
+
+#10 [publicacion 3/5] COPY package.json ./
+#10 CACHED
+
+#11 [dependencias 3/5] RUN corepack enable
+#11 CACHED
+
+#12 [construccion 1/3] COPY nest-cli.json tsconfig*.json ./
+#12 CACHED
+
+#13 [publicacion 4/5] COPY --from=dependencias-produccion /usr/app/node_modules ./node_modules
+#13 CACHED
+
+#14 [dependencias 5/5] RUN pnpm install --frozen-lockfile
+#14 CACHED
+
+#15 [dependencias-produccion 4/5] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#15 CACHED
+
+#16 [dependencias 2/5] WORKDIR /usr/app
+#16 CACHED
+
+#17 [dependencias-produccion 3/5] RUN corepack enable
+#17 CACHED
+
+#18 [construccion 2/3] COPY src ./src
+#18 CACHED
+
+#19 [construccion 3/3] RUN pnpm run build
+#19 CACHED
+
+#20 [dependencias-produccion 2/5] WORKDIR /usr/app
+#20 CACHED
+
+#21 [publicacion 5/5] COPY --from=construccion /usr/app/dist ./dist
+#21 CACHED
+
+#22 exporting to image
+#22 exporting layers done
+#22 exporting manifest sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 done
+#22 exporting config sha256:151da7edabb6755a248b709f9574fcc6870f98fe149a781ad6f76411031d2e9c done
+#22 pushing layers
+#22 ...
+
+#23 [auth] dromerop/tarea-final:pull,push token for ghcr.io
+#23 DONE 0.0s
+
+#22 exporting to image
+#22 pushing layers 1.3s done
+#22 pushing manifest for ghcr.io/dromerop/tarea-final:0.0.1@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4
+#22 pushing manifest for ghcr.io/dromerop/tarea-final:0.0.1@sha256:5f7271dbd808e9710e891d553afada77d2f3f4ac2e381199d3212793292197a4 0.6s done
+#22 DONE 1.9s
+[Pipeline] }
+[Pipeline] // container
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (CD - Despliegue en K8)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] container
+[Pipeline] {
+[Pipeline] withKubeConfig
+[Pipeline] {
+[Pipeline] sh
++ kubectl '--server=https://10.96.0.1' -n ns-daniel-romero set image deployment/app-daniel-romero 'tarea-final=dromerocl/tarea-final:daniel-romero'
+  deployment.apps/app-daniel-romero image updated
++ kubectl '--server=https://10.96.0.1' -n ns-daniel-romero rollout status deployment/app-daniel-romero
+  Waiting for deployment "app-daniel-romero" rollout to finish: 1 out of 3 new replicas have been updated...
+  Waiting for deployment "app-daniel-romero" rollout to finish: 1 out of 3 new replicas have been updated...
+  Waiting for deployment "app-daniel-romero" rollout to finish: 1 out of 3 new replicas have been updated...
+  Waiting for deployment "app-daniel-romero" rollout to finish: 2 out of 3 new replicas have been updated...
+  Waiting for deployment "app-daniel-romero" rollout to finish: 2 out of 3 new replicas have been updated...
+  Waiting for deployment "app-daniel-romero" rollout to finish: 2 out of 3 new replicas have been updated...
+  Waiting for deployment "app-daniel-romero" rollout to finish: 1 old replicas are pending termination...
+  Waiting for deployment "app-daniel-romero" rollout to finish: 1 old replicas are pending termination...
+  deployment "app-daniel-romero" successfully rolled out
+  [Pipeline] }
+  [kubernetes-cli] kubectl configuration cleaned up
+  [Pipeline] // withKubeConfig
+  [Pipeline] }
+  [Pipeline] // container
+  [Pipeline] }
+  [Pipeline] // stage
+  [Pipeline] }
+  [Pipeline] // withEnv
+  [Pipeline] }
+  [Pipeline] // container
+  [Pipeline] }
+  [Pipeline] // withEnv
+  [Pipeline] }
+  [Pipeline] // node
+  [Pipeline] }
+  [Pipeline] // podTemplate
+  [Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+Finished: SUCCESS

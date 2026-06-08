@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-daniel-romero
+  labels:
+    app: tarea-final
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-daniel-romero
+  namespace: ns-daniel-romero
+  labels:
+    app: tarea-final
+data:
+  AMBIENTE: "desarrollo"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-daniel-romero
+  namespace: ns-daniel-romero
+type: Opaque
+stringData:
+  API_KEY: "RpjjprQ5LK5edAt4XwHYJmwkjpzdZnDVsrchrMNRdKE4b3V4Mpb1X3JFm3Usp2MkiwNTW5f0zPCTYNExPaAsQbPY4GVz0DZzJUNsXtKpeuOtdysXGJrx2te18xeNACQC67zU1lZ02uubvfLxB8GeeL9O8iLdULF2SXTpRDATtHWJCKk7hQ6tW7WGRRX788tK06bKJGXnKkjeu2e7oYJuLKRUROnRrGHDfQu5MX7r1JmGFjUkBI6sWP6H16BBWF0o"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-daniel-romero
+  namespace: ns-daniel-romero
+  labels:
+    app: tarea-final
+spec:
+  type: ClusterIP
+  selector:
+    app: tarea-final
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-daniel-romero
+  namespace: ns-daniel-romero
+  labels:
+    app: tarea-final
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tarea-final
+  template:
+    metadata:
+      labels:
+        app: tarea-final
+    spec:
+      containers:
+        - name: tarea-final
+#          image: dromerocl/tarea-final:daniel-romero
+          image: ghcr.io/dromerop/tarea-final:daniel-romero
+          imagePullPolicy: Always
+          env:
+            - name: AMBIENTE
+              valueFrom:
+                configMapKeyRef:
+                  name: config-daniel-romero
+                  key: AMBIENTE
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secret-daniel-romero
+                  key: API_KEY
+          ports:
+            - containerPort: 80
