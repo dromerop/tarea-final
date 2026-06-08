@@ -59,7 +59,7 @@ spec:
     spec:
       containers:
         - name: tarea-final
-#          image: dromerocl/tarea-final:daniel-romero
+          #          image: dromerocl/tarea-final:daniel-romero
           image: ghcr.io/dromerop/tarea-final:daniel-romero
           imagePullPolicy: Always
           env:
