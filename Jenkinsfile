@@ -147,8 +147,9 @@ pipeline {
                 container('kubectl'){
                     withKubeConfig([credentialsId: 'local-kubernetes-credentials']){
                         sh '''
-                            kubectl -n ${K8S_NAMESPACE} set image deployment/${DEPLOYMENT} ${IMAGE_NAME}=${DH_REPO}:${DEPLOYMENT_TAG}
-                            kubectl -n ${K8S_NAMESPACE} rollout status deployment/${DEPLOYMENT}
+                            sh 'kubectl cluster-info
+//                            kubectl -n ${K8S_NAMESPACE} set image deployment/${DEPLOYMENT} ${IMAGE_NAME}=${DH_REPO}:${DEPLOYMENT_TAG}
+//                            kubectl -n ${K8S_NAMESPACE} rollout status deployment/${DEPLOYMENT}
                         '''
                     }
                 }
