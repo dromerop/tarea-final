@@ -147,8 +147,8 @@ pipeline {
                 container('kubectl'){
                     withKubeConfig([credentialsId: 'credenciales-kubernetes']){
                         sh '''
-//                            kubectl --server=https://10.96.0.1 -n ${K8S_NAMESPACE} set image deployment/${DEPLOYMENT} ${IMAGE_NAME}=${DH_REPO}:${DEPLOYMENT_TAG}
-//                            kubectl --server=https://10.96.0.1 -n ${K8S_NAMESPACE} rollout status deployment/${DEPLOYMENT}
+                            kubectl --server=https://10.96.0.1 -n ${K8S_NAMESPACE} set image deployment/${DEPLOYMENT} ${IMAGE_NAME}=${DH_REPO}:${DEPLOYMENT_TAG}
+                            kubectl --server=https://10.96.0.1 -n ${K8S_NAMESPACE} rollout status deployment/${DEPLOYMENT}
                         '''
                     }
                 }
